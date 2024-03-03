@@ -1,11 +1,11 @@
 import "./App.css";
-import { Button } from "reactstrap";
-
+import Header from "./components/Header/Header";
+import Home from "./pages/Home/Home";
 function App() {
   return (
     <>
-      <h1>Shopcart</h1>
-      <Button color="primary">Click Me</Button>
+      <Header color="light" light={true} expand="md" container="md"/>
+      <Home/>
     </>
   );
 }
