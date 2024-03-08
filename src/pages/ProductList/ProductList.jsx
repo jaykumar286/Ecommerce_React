@@ -1,23 +1,33 @@
-import "./ProductList.css";
-import ProductImage from "../../assets/product.jpg";
+// CSS import
+import './ProductList.css';
 
-export default function ProductList() {
-  return (
-    <div className="container">
-      <div className="row">
-        <h2 className="product-list-title text-center">All Products</h2>
-        <a href="" className="product-item text-decoration-none d-inline-block">
-          <div className="product-list-box" id="productList">
-            <div className="product-img">
-              <img src={ProductImage} alt="" />
+// Image import
+import ProductImage from '../../assets/product.jpg'
+import ProductBox from '../../components/ProductBox/ProductBox';
+import FilterProducts from '../../components/FilterProducts/FilterProducts';
+
+function ProductList() {
+    return (
+        <div className='container'>
+            <div className='row'>
+                <h2 className='product-list-title text-center'>All Products</h2>
+                <div className='product-list-wrapper d-flex flex-row'>
+
+
+                    <FilterProducts />
+
+                    {/* list of products */}
+                    <div className='product-list-box' id='productList'>
+
+                        <ProductBox productImage={ProductImage} name={"dummy"} price={1000} />
+
+                    </div>
+
+
+                </div>
             </div>
-            <div className="product-name text-center">Some Product</div>
-            <div className="product-price text-center">1000</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  );
+        </div>
+    )
 }
 
-
+export default ProductList;
