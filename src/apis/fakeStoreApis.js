@@ -1,15 +1,15 @@
 export function getAllCategories(){
-    return "https://fakestoreapi.com/products/categories";
+    return `${import.meta.env.VITE_FAKE_STORE_API}/products/categories`;
 }
 
 export function getAllProducts(){
-    return "https://fakestoreapi.com/products";
+    return `${import.meta.env.VITE_FAKE_STORE_API}/products`;
 }
 
 export function getProductByCategory(category){
-    return `https://fakestoreapi.com/products/category/${category}`;
+    return `${import.meta.env.VITE_FAKE_STORE_API}/products/category/${category}`;
 }
 
 export function getProductById(id){
-    return `https://fakestoreapi.com/products/${id}`;
+    return `${import.meta.env.VITE_FAKE_STORE_API}/products/${id}`;
 }
