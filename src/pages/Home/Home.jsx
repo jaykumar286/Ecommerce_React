@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-
 import "./Home.css";
 
 import CategoryItem from "../../components/CategoryItem/CategoryItem";
-import {getAllCategories} from "../../apis/fakeStoreApis";
+import useCategories from "../../hooks/useCategories";
 
 export default function Home() {
-  const [categoryList, setCategoryList] = useState([]);
-
-  async function getCategoryList() {
-    const response = await axios.get(getAllCategories());
-    setCategoryList(response.data);
-  }
-
-  useEffect(() => {
-    getCategoryList();
-  }, []);
+  const categoryList = useCategories();
 
   return (
     <div className="container">
@@ -29,9 +17,13 @@ export default function Home() {
           >
             <CategoryItem itemName={"All Product"} />
 
-            {categoryList.length &&
+            {categoryList.length>0 &&
               categoryList.map((category, index) => (
-                <CategoryItem key={index} itemName={category} />
+                <CategoryItem
+                  key={index}
+                  itemName={category}
+                  filter={category}
+                />
               ))}
           </div>
           <div className="category-title text-center">
