@@ -1,15 +1,18 @@
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 // Custom Compoents
-import App from './App.jsx'
+import App from "./App.jsx";
 
 // CSS imports
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <App />
+    <CookiesProvider defaultSetOptions={{ path: "/" }}>
+      <App />
+    </CookiesProvider>
   </BrowserRouter>
-)
+);

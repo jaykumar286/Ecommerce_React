@@ -11,6 +11,7 @@ import {
   DropdownItem,
   NavbarText,
 } from 'reactstrap';
+import { useCookies } from "react-cookie";
 
 // CSS import
 import './Header.css';
@@ -18,6 +19,7 @@ import { Link } from 'react-router-dom';
 
 function Header(props) {
   const [isOpen, setIsOpen] = useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['jwt-token']);
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -40,7 +42,9 @@ function Header(props) {
                 <DropdownItem>Settings</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  <Link to="/signin">Logout</Link>
+                  {
+                    cookies["jwt-token"] ? <Link to="/signin" onClick={()=>removeCookie("jwt-token")}>Logout</Link> : <Link to="/signin">Login</Link>
+                  }
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
