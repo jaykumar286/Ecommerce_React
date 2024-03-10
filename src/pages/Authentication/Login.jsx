@@ -1,16 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { useContext } from 'react';
+import { jwtDecode } from "jwt-decode";
 
 import Auth from "../../components/Auth/Auth";
 import { signin } from "../../apis/fakeStoreApis";
 
 import "./Auth.css";
+import UserContext from "../../context/UserContext";
 
 
 function Login() {
   const navigate = useNavigate();
-
+  const {setUser} = useContext(UserContext);
   const [cookies, setCookie, removeCookie] = useCookies(['jwt-token']);
 
   async function handleSubmit(formDetails) {
@@ -20,7 +23,8 @@ function Login() {
             email: formDetails.email,
             password: formDetails.password,
           });
-          setCookie('jwt-token',response.data.token,{httpOnly:true}) 
+          setCookie('jwt-token',response.data.token);
+          setUser(jwtDecode(response.data.token));
           navigate("/")
     } catch (error) {
         console.log(error)

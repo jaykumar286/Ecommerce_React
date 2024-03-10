@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from "react";
 import {
   Collapse,
   Navbar,
@@ -10,30 +10,28 @@ import {
   DropdownMenu,
   DropdownItem,
   NavbarText,
-} from 'reactstrap';
+} from "reactstrap";
 import { useCookies } from "react-cookie";
-
+import UserContext from "../../context/UserContext";
 // CSS import
-import './Header.css';
-import { Link } from 'react-router-dom';
+import "./Header.css";
+import { Link } from "react-router-dom";
 
 function Header(props) {
   const [isOpen, setIsOpen] = useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(['jwt-token']);
-
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
   const toggle = () => setIsOpen(!isOpen);
-
+  const { user,setUser } = useContext(UserContext);
   return (
     <div>
       <Navbar {...props}>
         <NavbarBrand id="title">
           <Link to="/">Shop Cart</Link>
-
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ms-auto" navbar>
-            <UncontrolledDropdown nav inNavbar style={{marginRight: '2rem'}}>
+            <UncontrolledDropdown nav inNavbar style={{ marginRight: "2rem" }}>
               <DropdownToggle nav caret>
                 Options
               </DropdownToggle>
@@ -42,13 +40,20 @@ function Header(props) {
                 <DropdownItem>Settings</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>
-                  {
-                    cookies["jwt-token"] ? <Link to="/signin" onClick={()=>removeCookie("jwt-token")}>Logout</Link> : <Link to="/signin">Login</Link>
-                  }
+                  {cookies["jwt-token"] ? (
+                    <Link
+                      to="/signin"
+                      onClick={() => {removeCookie("jwt-token");setUser(null)}}
+                    >
+                      Logout
+                    </Link>
+                  ) : (
+                    <Link to="/signin">Login</Link>
+                  )}
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
-            <NavbarText>Username</NavbarText>
+            <NavbarText>{user && user.user}</NavbarText>
           </Nav>
         </Collapse>
       </Navbar>
