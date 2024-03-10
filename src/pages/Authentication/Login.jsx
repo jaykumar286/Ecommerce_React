@@ -22,7 +22,7 @@ function Login() {
             username: formDetails.username,
             email: formDetails.email,
             password: formDetails.password,
-          });
+          },{withCredentials: true});
           setCookie('jwt-token',response.data.token);
           setUser(jwtDecode(response.data.token));
           navigate("/")

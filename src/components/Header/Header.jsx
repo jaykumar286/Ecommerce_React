@@ -16,12 +16,21 @@ import UserContext from "../../context/UserContext";
 // CSS import
 import "./Header.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Header(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["jwt-token"]);
   const toggle = () => setIsOpen(!isOpen);
   const { user,setUser } = useContext(UserContext);
+
+
+  function logout() {
+    removeCookie('jwt-token', {httpOnly: true});
+    axios.get(`${import.meta.env.VITE_FAKE_STORE_API}/logout`, {withCredentials: true});
+    setUser(null);
+  }
+
   return (
     <div>
       <Navbar {...props}>
@@ -43,7 +52,7 @@ function Header(props) {
                   {cookies["jwt-token"] ? (
                     <Link
                       to="/signin"
-                      onClick={() => {removeCookie("jwt-token");setUser(null)}}
+                      onClick={logout}
                     >
                       Logout
                     </Link>

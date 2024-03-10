@@ -6,7 +6,7 @@ export default function useCategories() {
   const [categoryList, setCategoryList] = useState([]);
 
   async function getCategoryList() {
-    const response = await axios.get(getAllCategories());
+    const response = await axios.get(getAllCategories(),{withCredentials: true});
     setCategoryList(response.data);
   }
 
